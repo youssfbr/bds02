@@ -1,6 +1,7 @@
 package com.devsuperior.bds02.services;
 
 import com.devsuperior.bds02.dto.CityDTO;
+import com.devsuperior.bds02.entities.City;
 import com.devsuperior.bds02.repositories.ICityRepository;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -24,5 +25,13 @@ public class CityService {
                 .stream()
                 .map(CityDTO::new)
                 .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public CityDTO insert(CityDTO dto) {
+        City entity = new City();
+        entity.setName(dto.getName());
+        entity = cityRepository.save(entity);
+        return new CityDTO(entity);
     }
 }
